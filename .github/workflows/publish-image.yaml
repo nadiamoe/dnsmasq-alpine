@@ -1,0 +1,37 @@
+name: Release tagged image
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  release:
+    name: Build and push image
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Extract dnsmasq version
+        id: version
+        run: |
+          echo "dnsmasq=$(sed -nr 's/^ARG DNSMASQ_VERSION=(.*)$/\1/p' Dockerfile)" >> "$GITHUB_OUTPUT"
+      - name: Generate tag
+        id: tag
+        run: |
+          echo "bare=${{ steps.version.outputs.dnsmasq }}" >> "$GITHUB_OUTPUT"
+          echo "full=${{ steps.version.outputs.dnsmasq }}-$(git rev-parse --short HEAD)" >> "$GITHUB_OUTPUT"
+      - uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+      - name: Build and push
+        uses: docker/build-push-action@v4
+        with:
+          push: true
+          tags: |
+            ghcr.io/${{ github.repository_owner }}/dnsmasq:${{ steps.tag.outputs.bare }}
+            ghcr.io/${{ github.repository_owner }}/dnsmasq:${{ steps.tag.outputs.full }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max

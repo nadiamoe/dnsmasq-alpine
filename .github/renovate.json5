@@ -1,0 +1,18 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:base"
+  ],
+  "docker": {},
+  "regexManagers": [
+    {
+      // Update PowerDNS tag in the Dockerfile.
+      "fileMatch": [ "^Dockerfile$" ],
+      "datasourceTemplate": "git-tags",
+      "depNameTemplate": "http://thekelleys.org.uk/git/dnsmasq.git",
+      "matchStrings": [
+        "ARG DNSMASQ_VERSION=(?<currentValue>.*)"
+      ]
+    }
+  ]
+}
