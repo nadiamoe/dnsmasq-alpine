@@ -13,4 +13,4 @@ RUN addgroup -S dnsmasq && \
 
 COPY --from=build /usr/sbin/dnsmasq /usr/sbin/
 
-ENTRYPOINT [ "/usr/sbin/dnsmasq" ]
+ENTRYPOINT [ "/usr/sbin/dnsmasq", "-k" ]
