@@ -10,6 +10,7 @@
       "fileMatch": [ "^Dockerfile$" ],
       "datasourceTemplate": "git-tags",
       "depNameTemplate": "http://thekelleys.org.uk/git/dnsmasq.git",
+      "extractVersionTemplate": "^v(?<version>.*)$",
       "matchStrings": [
         "ARG DNSMASQ_VERSION=(?<currentValue>.*)"
       ]
