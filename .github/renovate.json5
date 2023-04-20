@@ -11,6 +11,7 @@
       "datasourceTemplate": "git-tags",
       "depNameTemplate": "http://thekelleys.org.uk/git/dnsmasq.git",
       "extractVersionTemplate": "^v(?<version>.*)$",
+      "versioningTemplate": "loose",
       "matchStrings": [
         "ARG DNSMASQ_VERSION=(?<currentValue>.*)"
       ]
