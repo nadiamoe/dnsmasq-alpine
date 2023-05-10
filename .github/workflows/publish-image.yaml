@@ -11,14 +11,18 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Extract dnsmasq version
-        id: version
+        id: dnsmasq
         run: |
-          echo "dnsmasq=$(sed -nr 's/^ARG DNSMASQ_VERSION=(.*)$/\1/p' Dockerfile)" >> "$GITHUB_OUTPUT"
+          echo "version=$(sed -nr 's/^ARG DNSMASQ_VERSION=(.*)$/\1/p' Dockerfile)" >> "$GITHUB_OUTPUT"
+      - name: Extract alpine version
+        id: alpine
+        run: |
+          echo "version=$(grep -oE 'alpine:([^ ]+)' Dockerfile | head -1 | cut -d: -f2)" >> "$GITHUB_OUTPUT"
       - name: Generate tag
         id: tag
         run: |
-          echo "bare=${{ steps.version.outputs.dnsmasq }}" >> "$GITHUB_OUTPUT"
-          echo "full=${{ steps.version.outputs.dnsmasq }}-$(git rev-parse --short HEAD)" >> "$GITHUB_OUTPUT"
+          echo "bare=${{ steps.dnsmasq.outputs.version }}-alpine${{ steps.alpine.outputs.version }}" >> "$GITHUB_OUTPUT"
+          echo "full=${{ steps.dnsmasq.outputs.version }}-$(git rev-parse --short HEAD)" >> "$GITHUB_OUTPUT"
       - uses: docker/login-action@v2
         with:
           registry: ghcr.io
