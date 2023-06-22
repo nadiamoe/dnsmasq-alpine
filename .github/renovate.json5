@@ -6,7 +6,7 @@
   "docker": {},
   "regexManagers": [
     {
-      // Update PowerDNS tag in the Dockerfile.
+      // Update dnsmasq tag in the Dockerfile.
       "fileMatch": [ "^Dockerfile$" ],
       "datasourceTemplate": "git-tags",
       "depNameTemplate": "http://thekelleys.org.uk/git/dnsmasq.git",
