@@ -3,7 +3,6 @@
   "extends": [
     "config:base"
   ],
-  "docker": {},
   "regexManagers": [
     {
       // Update dnsmasq tag in the Dockerfile.
