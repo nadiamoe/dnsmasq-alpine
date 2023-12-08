@@ -1,4 +1,4 @@
-FROM alpine:3.18.5 as build
+FROM alpine:3.19.0 as build
 ARG DNSMASQ_VERSION=2.89
 # Deps sourced from https://git.alpinelinux.org/aports/tree/main/dnsmasq/APKBUILD
 RUN apk add build-base coreutils dbus-dev linux-headers nettle-dev
@@ -6,7 +6,7 @@ RUN wget https://www.thekelleys.org.uk/dnsmasq/dnsmasq-$DNSMASQ_VERSION.tar.xz -
 WORKDIR dnsmasq-$DNSMASQ_VERSION
 RUN make PREFIX=/usr DESTDIR=/ install
 
-FROM alpine:3.18.5
+FROM alpine:3.19.0
 # From https://git.alpinelinux.org/aports/tree/main/dnsmasq/dnsmasq.pre-install
 RUN addgroup -S dnsmasq && \
     adduser -S -D -H -h /dev/null -s /sbin/nologin -G dnsmasq -g dnsmasq dnsmasq
