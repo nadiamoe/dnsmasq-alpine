@@ -1,5 +1,5 @@
 FROM alpine:3.21.0 as build
-ARG DNSMASQ_VERSION=2.90
+ARG DNSMASQ_VERSION=2.91test1
 # Deps sourced from https://git.alpinelinux.org/aports/tree/main/dnsmasq/APKBUILD
 RUN apk add build-base coreutils dbus-dev linux-headers nettle-dev
 RUN wget https://www.thekelleys.org.uk/dnsmasq/dnsmasq-$DNSMASQ_VERSION.tar.xz -O- | tar -xJ
