@@ -1,19 +1,21 @@
 {
-  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": [
-    "github>nadiamoe/renovate-config",
+  $schema: 'https://docs.renovatebot.com/renovate-schema.json',
+  extends: [
+    'github>nadiamoe/renovate-config',
   ],
-  "regexManagers": [
+  customManagers: [
     {
-      // Update dnsmasq tag in the Dockerfile.
-      "fileMatch": [ "^Dockerfile$" ],
-      "datasourceTemplate": "git-tags",
-      "depNameTemplate": "http://thekelleys.org.uk/git/dnsmasq.git",
-      "extractVersionTemplate": "^v(?<version>.*)$",
-      "versioningTemplate": "loose",
-      "matchStrings": [
-        "ARG DNSMASQ_VERSION=(?<currentValue>.*)"
-      ]
-    }
-  ]
+      customType: 'regex',
+      fileMatch: [
+        '^Dockerfile$',
+      ],
+      datasourceTemplate: 'git-tags',
+      depNameTemplate: 'http://thekelleys.org.uk/git/dnsmasq.git',
+      extractVersionTemplate: '^v(?<version>.*)$',
+      versioningTemplate: 'loose',
+      matchStrings: [
+        'ARG DNSMASQ_VERSION=(?<currentValue>.*)',
+      ],
+    },
+  ],
 }
